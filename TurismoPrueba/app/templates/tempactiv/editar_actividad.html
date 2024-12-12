@@ -1,0 +1,16 @@
+<form method="POST">
+    <input type="text" name="nombre" value="{{ actividad.nombre if actividad else '' }}" placeholder="Nombre" required>
+    <input type="text" name="descripcion" value="{{ actividad.descripcion if actividad else '' }}" placeholder="Descripcion" required>
+    <input type="number" name="precio" value="{{ actividad.precio if actividad else '' }}" placeholder="Precio" required>
+    <select name="destino_id" required>
+        <option value="" disabled {{ '' if actividad and not actividad.destino_id else 'selected' }}>Selecciona un destino</option>
+        {% for destino in destinos %}
+        <option value="{{ destino.id }}" {{ 'selected' if actividad and actividad.destino_id == destino.id else '' }}>
+            {{ destino.nombre }}
+        </option>
+        {% endfor %}
+    </select>
+    <button type="submit">Guardar</button>
+</form>
+    
+        

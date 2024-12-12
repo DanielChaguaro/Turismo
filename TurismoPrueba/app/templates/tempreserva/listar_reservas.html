@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}reserva - listar_reservas{% endblock %}
+
+{% block content %}
+<h1>Lista de reservas</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+    </tr>
+    {% for reserva in reserva %}
+    <tr>
+        <td>{{ reserva.id }}</td>
+        <td>{{ reserva.fecha }}</td>
+        <td>
+            <a href="{{ url_for('routes.edit_reserva', reserva_id=reserva.id) }}">Editar</a>
+            <a href="{{ url_for('routes.delete_reserva', reserva_id=reserva.id) }}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Recomendaciones Básicas{% endblock %}
+
+{% block content %}
+<h1>Recomendaciones para Ti</h1>
+
+<form method="POST">
+    <label for="fecha_inicial">Fecha Inicial</label>
+    <input type="date" name="fecha_inicial" required>
+    
+    <label for="fecha_final">Fecha Final</label>
+    <input type="date" name="fecha_final" required>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<ul>
+    {% for actividad in recomendaciones %}
+    <li>
+        
+        <h2>
+            <a href="{{ url_for('routes.create_reserva',actividad_id=actividad.id) }}">
+                {{ actividad.nombre }}
+            </a>
+        </h2>
+        <p>{{ actividad.descripcion }}</p>
+        <p>Precio: ${{ actividad.precio }}</p>
+        <p>Destino: {{ actividad.destino_nombre }}</p>
+        <p>Temporada Recomendada: {{ actividad.destino_temporada }}</p>
+        <p>Total de Reservas: {{ actividad.total_reservas }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

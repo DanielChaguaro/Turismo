@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css"> <!-- Opcional: agrega estilos -->
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('routes.dashboard') }}">Usuarios</a></li>
+            <li><a href="{{ url_for('routes.listar_destinos') }}">Destinos</a></li>  
+            <li><a href="{{ url_for('routes.listar_actividades') }}">Actividades</a></li>
+            <li><a href="{{ url_for('routes.listar_reservas') }}">Reservas</a></li>
+            <li><a href="{{ url_for('routes.recomendaciones_basicas') }}">Recomendaciones</a></li> 
+            <li><a href="{{ url_for('routes.login') }}">Cerrar Sesion</a></li> 
+            
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

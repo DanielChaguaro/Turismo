@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}actividad - listar_actividades{% endblock %}
+
+{% block content %}
+<h1>Lista de Actividades</h1>
+<a href="{{ url_for('routes.create_actividad') }}">Crear actividad</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+    </tr>
+    {% for actividad in actividad %}
+    <tr>
+        <td>{{ actividad.id }}</td>
+        <td>{{ actividad.nombre }}</td>
+        <td>{{ actividad.descripcion }}</td>
+        <td>{{ actividad.precio }}</td>
+        <td>
+            <a href="{{ url_for('routes.edit_actividad', actividad_id=actividad.id) }}">Editar</a>
+            <a href="{{ url_for('routes.delete_actividad', actividad_id=actividad.id) }}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

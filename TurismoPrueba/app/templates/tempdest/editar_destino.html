@@ -1,0 +1,15 @@
+<form method="POST">
+    <input type="text" name="nombre" value="{{ destino.nombre if destino else '' }}" placeholder="Nombre" required>
+    <input type="text" name="descripcion" value="{{ destino.descripcion if destino else '' }}" placeholder="Descripción" required>
+    <input type="text" name="region" value="{{ destino.region if destino else '' }}" placeholder="Región" required>
+    <select name="temporada_recomendada" required>
+        <option value="" disabled {{ '' if destino and destino.temporada_recomendada else 'selected' }}>Selecciona una opción</option>
+        <option value="primavera" {{ 'selected' if destino and destino.temporada_recomendada == 'primavera' else '' }}>Primavera</option>
+        <option value="verano" {{ 'selected' if destino and destino.temporada_recomendada == 'verano' else '' }}>Verano</option>
+        <option value="otoño" {{ 'selected' if destino and destino.temporada_recomendada == 'otoño' else '' }}>Otoño</option>
+        <option value="invierno" {{ 'selected' if destino and destino.temporada_recomendada == 'invierno' else '' }}>Invierno</option>
+        <option value="todo el año" {{ 'selected' if destino and destino.temporada_recomendada == 'todo el año' else '' }}>Todo el año</option>
+    </select>
+    
+    <button type="submit">Guardar</button>
+</form>

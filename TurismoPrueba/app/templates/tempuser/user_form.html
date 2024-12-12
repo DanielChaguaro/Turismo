@@ -1,0 +1,7 @@
+<form method="POST">
+    <input type="text" name="nombre" value="{{ user.nombre if user else '' }}" placeholder="Nombre" required>
+    <input type="email" name="email" value="{{ user.email if user else '' }}" placeholder="Correo" required>
+    <input type="password" name="contrasena" value="{{ user.password if user else '' }}" placeholder="Password" required>
+    <input type="text" name="preferencias" value="{{ user.preferencias if user else '' }}" placeholder="Preferencias" required>
+    <button type="submit">Guardar</button>
+</form>

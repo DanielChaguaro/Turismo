@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Destinos - listar_destinos{% endblock %}
+
+{% block content %}
+<h1>Lista de Destinos</h1>
+<a href="{{ url_for('routes.create_destino') }}">Crear destino</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Región</th>
+        <th>Temporada Recomendada</th>
+        <th>Acciones</th>
+    </tr>
+    {% for destino in destino %}
+    <tr>
+        <td>{{ destino.id }}</td>
+        <td>{{ destino.nombre }}</td>
+        <td>{{ destino.descripcion }}</td>
+        <td>{{ destino.region }}</td>
+        <td>{{ destino.temporada_recomendada }}</td>
+        <td>
+            <a href="{{ url_for('routes.edit_destino', destino_id=destino.id) }}">Editar</a>
+            <a href="{{ url_for('routes.delete_destino', destino_id=destino.id) }}">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
