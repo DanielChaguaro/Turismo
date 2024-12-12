@@ -57,10 +57,10 @@ def recomendaciones_basicas():
                         if preferencia.lower() in actividad.descripcion.lower():
                             #actividad.id not in historial
                             if  actividad.id not in actividades_agregadas:
-                                temporada_match = 1 if temporada_actual and temporada_actual in destino.temporada_recomendada else 0
+                                temporada_match = 1 if temporada_actual and (temporada_actual in destino.temporada_recomendada or 'todo el año' in destino.temporada_recomendada) else 0
                                 puntaje = (
-                                    (reservas_dict.get(actividad.id, 0) / max_reservas) * 0.5 +
-                                    (min_precio / actividad.precio) * 0.3 +
+                                    (reservas_dict.get(actividad.id, 0) / max_reservas) * 0.3 +
+                                    (min_precio / actividad.precio) * 0.5 +
                                     temporada_match * 0.2
                                 )
                                 recomendaciones.append({
@@ -75,5 +75,5 @@ def recomendaciones_basicas():
                                     "puntaje": puntaje
                                 })
                                 actividades_agregadas.add(actividad.id)
-        recomendaciones = sorted(recomendaciones, key=lambda x: (x["puntaje"]))
+        recomendaciones = sorted(recomendaciones, key=lambda x: (x["puntaje"]), reverse=True)
         return render_template('recomendaciones_basicas.html', recomendaciones=recomendaciones)
