@@ -48,6 +48,23 @@ def recomendaciones_basicas():
         reservas_dict = {reserva.actividad_id: reserva.total_reservas for reserva in reservas_por_actividad}
         max_reservas = max(reservas_dict.values(), default=1)
         min_precio = min([actividad.precio for actividad in Actividad.query.all()], default=1)
+        #precio_min = 50.0  
+        #precio_max = 500.0 
+        #max_demanda = max(reservas_dict.values(), default=1)  
+    
+        #actividades = Actividad.query.all()
+        #for actividad in actividades:
+        #    demanda_relativa = reservas_dict.get(actividad.id, 0) / max_demanda  
+        #    if demanda_relativa > 0.5:
+
+        #        nuevo_precio = actividad.precio * (1 + demanda_relativa * 0.1)  
+        #    else:
+
+        #        nuevo_precio = actividad.precio * (1 - (0.5 - demanda_relativa) * 0.1)  
+
+        #actividad.precio = max(precio_min, min(precio_max, round(nuevo_precio, 2)))
+
+        
         recomendaciones = []
         actividades_agregadas = set() 
         for preferencia in preferencias:
@@ -77,3 +94,38 @@ def recomendaciones_basicas():
                                 actividades_agregadas.add(actividad.id)
         recomendaciones = sorted(recomendaciones, key=lambda x: (x["puntaje"]), reverse=True)
         return render_template('recomendaciones_basicas.html', recomendaciones=recomendaciones)
+    
+def reportes():
+    reservas_por_temporada = (
+        db.session.query(
+            Reserva.actividad_id,
+            Destino.temporada_recomendada,
+            func.count(Reserva.id).label("total_reservas")
+        )
+        .join(Actividad, Reserva.actividad_id == Actividad.id)
+        .join(Destino, Actividad.destino_id == Destino.id)
+        .group_by(Reserva.actividad_id, Destino.temporada_recomendada)
+        .all()
+    )
+    
+    reporte = {}
+    for actividad_id, temporada, total_reservas in reservas_por_temporada:
+        if temporada not in reporte:
+            reporte[temporada] = []
+        actividad = Actividad.query.get(actividad_id)
+        reporte[temporada].append({
+            "nombre": actividad.nombre,
+            "descripcion": actividad.descripcion,
+            "total_reservas": total_reservas
+        })
+    preferencias_totales = {}
+    usuarios = Usuario.query.all()
+    for usuario in usuarios:
+        preferencias = usuario.preferencias.split(",") if usuario.preferencias else []
+        for preferencia in preferencias:
+            if preferencia not in preferencias_totales:
+                preferencias_totales[preferencia] = 0
+            preferencias_totales[preferencia] += 1
+
+    preferencias_ordenadas = sorted(preferencias_totales.items(),key=lambda x: x[1],reverse=True)
+    return render_template('reportes.html', reporte=reporte,preferencias_ordenadas=preferencias_ordenadas)

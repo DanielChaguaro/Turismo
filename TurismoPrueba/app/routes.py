@@ -34,6 +34,7 @@ routes.add_url_rule('/create_reserva/<int:actividad_id>', 'create_reserva', crea
 routes.add_url_rule('/edit_reserva/<int:reserva_id>', 'edit_reserva', edit_reserva, methods=['GET', 'POST'])
 routes.add_url_rule('/delete_reserva/<int:reserva_id>', 'delete_reserva', delete_reserva)
 
-from app.controllers.core_controller import recomendaciones_basicas
+from app.controllers.core_controller import recomendaciones_basicas, reportes
 
 routes.add_url_rule('/recomendaciones_basicas', 'recomendaciones_basicas', recomendaciones_basicas,methods=['GET', 'POST'])
+routes.add_url_rule('/reportes', 'reportes', reportes,methods=['GET', 'POST'])

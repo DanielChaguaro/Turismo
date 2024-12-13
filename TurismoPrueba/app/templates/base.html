@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Dashboard{% endblock %}</title>
-    <link rel="stylesheet" href="/static/styles.css"> <!-- Opcional: agrega estilos -->
+    <link rel="stylesheet" href="styles/styles.css"> 
 </head>
 <body>
     <nav>
@@ -14,8 +14,8 @@
             <li><a href="{{ url_for('routes.listar_actividades') }}">Actividades</a></li>
             <li><a href="{{ url_for('routes.listar_reservas') }}">Reservas</a></li>
             <li><a href="{{ url_for('routes.recomendaciones_basicas') }}">Recomendaciones</a></li> 
+            <li><a href="{{ url_for('routes.reportes') }}">Reportes</a></li> 
             <li><a href="{{ url_for('routes.login') }}">Cerrar Sesion</a></li> 
-            
         </ul>
     </nav>
 

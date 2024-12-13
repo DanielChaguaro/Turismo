@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Recomendaciones Básicas{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Temporadas</title>
+</head>
+<body>
+    <h1>Reporte de Actividades por Temporada</h1>
+    {% for temporada, actividades in reporte.items() %}
+    <section>
+        <h2>Temporada: {{ temporada }}</h2>
+
+        <h3>Actividades Más Reservadas</h3>
+        <ul>
+            {% for actividad in actividades %}
+            <li>
+                <strong>{{ actividad.nombre }}</strong>: {{ actividad.descripcion }} <br>
+                Total de Reservas: {{ actividad.total_reservas }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endfor %}
+
+
+    <h1>Reporte de Preferencias de Usuarios</h1>
+    <h3>Preferencias Más Comunes</h3>
+    <ul>
+        {% for preferencia, total in preferencias_ordenadas %}
+        <li>
+            {{ preferencia }}: {{ total }} usuarios
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+{% endblock %}
